@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halima Masud | Creative Studio</title>
+    <title>Halima Masud | Portfolio</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            --primary-text-color: #ffffff;
-            --secondary-text-color: #d1d1d1;
-            --accent-color: #e6c07e; /* A warm, elegant gold */
-            --bg-color: #121212; /* This is the fallback color */
-            --heading-font: 'Lora', serif;
+            --bg-color: #fdfcfa; 
+            --surface-color: #ffffff;
+            --primary-color: #8a4baf;
+            --text-color: #2c2c3e;
+            --secondary-text-color: #6a6a7a;
+            --heading-font: 'Playfair Display', serif;
             --body-font: 'Poppins', sans-serif;
         }
 
@@ -24,122 +25,226 @@
         
         body {
             font-family: var(--body-font);
+            color: var(--text-color);
+            line-height: 1.7;
             background-color: var(--bg-color);
-            color: var(--primary-text-color);
-            overflow-x: hidden;
-            
-            /* This is now set up to look for an image in your 'images' folder */
-            background-image: url('images/background.jpg');
-            
-            background-size: 100% auto;
-            background-position: center center;
-            background-attachment: fixed;
-            
-            animation: kenBurns 30s ease-in-out infinite alternate;
+            background-image: 
+                radial-gradient(at 20% 20%, hsla(271, 80%, 90%, 1) 0px, transparent 50%),
+                radial-gradient(at 80% 85%, hsla(35, 90%, 85%, 1) 0px, transparent 50%);
         }
 
-        .hero {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-            padding: 2rem;
-            background-color: rgba(0, 0, 0, 0.4);
-        }
-
-        .profile-image-container {
-            width: 180px;
-            height: 180px;
-            margin-bottom: 2rem;
-            animation: fadeIn 1.5s ease-in-out;
-        }
-        .profile-image {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 4px solid var(--accent-color);
-            object-fit: cover;
-            box-shadow: 0 0 30px rgba(230, 192, 126, 0.3);
-        }
-
-        .hero-title {
-            font-family: var(--heading-font);
-            font-size: 3.5rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.7);
-            animation: slideUp 1s ease-out 0.5s forwards;
-            opacity: 0;
-        }
-        .hero-subtitle {
-            font-size: 1.2rem;
-            font-weight: 300;
-            color: var(--secondary-text-color);
-            margin-bottom: 2.5rem;
-            animation: slideUp 1s ease-out 0.8s forwards;
-            opacity: 0;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--bg-color);
-            padding: 15px 35px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 50px;
+        /* --- Header --- */
+        .header { width: 100%; padding: 1.5rem 2rem; position: fixed; top: 0; left: 0; background: rgba(253, 252, 250, 0.8); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .navbar { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+        .logo { font-family: var(--heading-font); font-weight: 900; font-size: 1.8rem; text-decoration: none; color: var(--primary-color); }
+        .nav-links { list-style: none; display: flex; gap: 2rem; }
+        .nav-links a { text-decoration: none; color: var(--text-color); font-weight: 600; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--primary-color); }
+        
+        /* NEW: Hamburger Menu Icon (hidden on desktop) */
+        .hamburger {
+            display: none;
+            font-size: 2rem;
             cursor: pointer;
-            border: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            animation: slideUp 1s ease-out 1.1s forwards;
-            opacity: 0;
-        }
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-            background-color: #fff;
+            color: var(--text-color);
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes kenBurns {
-            0% { background-size: 100% auto; background-position: center center; }
-            100% { background-size: 120% auto; background-position: top left; }
-        }
+        /* --- Hero Section (Split Screen) --- */
+        .hero { display: flex; min-height: 100vh; align-items: center; width: 100%; }
+        .hero-text, .hero-image { flex: 1; padding: 4rem; }
+        .hero-image { background-image: url('https://i.imgur.com/K1C3s7d.png'); background-size: cover; background-position: center; min-height: 100vh; }
+        .hero-text { display: flex; flex-direction: column; justify-content: center; }
+        .hero-text h1 { font-family: var(--heading-font); font-size: 4.5rem; font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; }
+        .hero-text h1 span { color: var(--primary-color); }
+        .hero-text .subtitle { font-size: 1.2rem; color: var(--secondary-text-color); margin-bottom: 2rem; }
+        .hero-text .bio { font-size: 1rem; max-width: 500px; margin-bottom: 2.5rem; }
+        .cta-button { display: inline-block; background: var(--primary-color); color: white; padding: 15px 35px; text-decoration: none; font-weight: 600; border-radius: 5px; transition: all 0.3s; }
+        .cta-button:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(138, 75, 175, 0.3); }
 
-        @media (max-width: 768px) {
-            .profile-image-container { width: 150px; height: 150px; }
-            .hero-title { font-size: 2.5rem; }
-            .hero-subtitle { font-size: 1rem; }
+        /* --- General Section Styling --- */
+        .content-section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 3rem; font-family: var(--heading-font); margin-bottom: 4rem; }
+        .section-title span { color: var(--primary-color); }
+        
+        /* --- Circular Skills Section --- */
+        .services-grid-circular { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem; margin-top: 2rem; }
+        .service-item { text-align: center; transition: transform 0.3s ease; }
+        .service-item:hover { transform: translateY(-10px); }
+        .service-circle { width: 130px; height: 130px; border-radius: 50%; background: var(--surface-color); border: 2px solid rgba(0,0,0,0.05); box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; justify-content: center; align-items: center; margin: 0 auto 1.5rem auto; transition: all 0.3s ease; }
+        .service-item:hover .service-circle { border-color: var(--primary-color); box-shadow: 0 8px 25px rgba(138, 75, 175, 0.2); }
+        .service-circle svg { width: 50px; height: 50px; color: var(--primary-color); transition: transform 0.3s ease; }
+        .service-item:hover .service-circle svg { transform: scale(1.1); }
+        .service-item h3 { font-family: var(--heading-font); font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--text-color); }
+        .service-item p { color: var(--secondary-text-color); max-width: 300px; margin: 0 auto; font-size: 0.95rem; }
+
+        /* --- Projects Grid --- */
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .project-card { background: var(--surface-color); border-radius: 8px; overflow: hidden; box-shadow: 0 5px 25px rgba(0,0,0,0.05); }
+        .project-card img { width: 100%; height: 220px; object-fit: cover; transition: transform 0.4s; }
+        .project-card:hover img { transform: scale(1.05); }
+        .project-content { padding: 1.5rem; }
+        .project-content h3 { color: var(--primary-color); }
+        .project-links { margin-top: 1rem; }
+        .project-links a { color: var(--primary-color); text-decoration: none; font-weight: 600; margin-right: 1rem; }
+
+        /* --- Footer --- */
+        .footer { background: var(--surface-color); text-align: center; padding: 3rem 1rem; border-top: 1px solid rgba(0,0,0,0.1); }
+        .footer p { margin-top: 1rem; }
+
+        /* ============================================= */
+        /* ===   MOBILE RESPONSIVENESS STYLES          === */
+        /* ============================================= */
+        @media (max-width: 900px) {
+            .hero { flex-direction: column; }
+            .hero-image { display: none; }
+            .hero-text { text-align: center; padding: 6rem 2rem 4rem 2rem; align-items: center; }
+            .hero-text h1 { font-size: 3rem; }
+            
+            /* Show hamburger and hide desktop nav */
+            .hamburger { display: block; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: rgba(253, 252, 250, 0.95);
+                backdrop-filter: blur(5px);
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(0,0,0,0.05);
+            }
+            /* This class will be toggled by JavaScript */
+            .nav-links.active {
+                display: flex;
+            }
+            .nav-links li {
+                padding: 1rem 0;
+                text-align: center;
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
+
+    <header class="header">
+        <nav class="navbar">
+            <a href="#" class="logo">The Digital Loom</a>
+            <!-- Nav links now have an ID for JavaScript -->
+            <ul class="nav-links" id="nav-menu">
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#projects">Creations</a></li>
+            </ul>
+            <!-- NEW: The hamburger icon -->
+            <div class="hamburger" id="hamburger-btn">☰</div>
+        </nav>
+    </header>
+
     <main>
-        <section class="hero">
-            <div class="profile-image-container">
-                <img src="https://i.imgur.com/K1C3s7d.png" alt="An artistic avatar of a woman with her face partially covered" class="profile-image">
+        <section class="hero" id="home">
+            <div class="hero-text">
+                <h1>Hi, I'm Halima <span>Masud</span></h1>
+                <p class="subtitle">Front-End Developer • Handmade Artisan • Poet</p>
+                <p class="bio">A multi-talented creative from Nigeria who masterfully merges digital innovation with the heartfelt, tangible art of handmade crafts and evocative poetry.</p>
+                <a href="#contact" class="cta-button">Contact Me</a>
             </div>
-            <h1 class="hero-title">The Digital Loom</h1>
-            <p class="hero-subtitle">Front-End Developer | Handmade Artisan | Poet</p>
-            <a id="whatsapp-btn" class="cta-button">Contact Me on WhatsApp</a>
+            <div class="hero-image"></div>
+        </section>
+
+        <section class="content-section" id="about">
+            <h2 class="section-title">About <span>Me</span></h2>
+            <p style="max-width: 700px; margin: 0 auto; text-align: center; font-size: 1.1rem;">
+                My passion lies at the intersection of logic and artistry. The precision of coding sharpens my eye for sewing, and the storytelling of poetry infuses my designs—both digital and physical—with heart and purpose. I build clean, intuitive websites, sew unique kidswear, and capture moments in verse.
+            </p>
+        </section>
+        
+        <section class="content-section" id="services">
+            <h2 class="section-title">Skills & <span>Services</span></h2>
+            <div class="services-grid-circular">
+                <div class="service-item">
+                    <div class="service-circle">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    </div>
+                    <h3>Front-End Development</h3>
+                    <p>Building beautiful, responsive websites that turn creative visions into high-performance digital realities.</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-circle">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                    </div>
+                    <h3>Handmade Kidswear</h3>
+                    <p>Designing and sewing bespoke garments for children, using soft, organic fabrics and meticulous craftsmanship.</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-circle">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                    </div>
+                    <h3>Poetry & Writing</h3>
+                    <p>Crafting evocative poetry and compelling narratives that explore emotion, culture, and the human experience.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section" id="projects">
+            <h2 class="section-title">My <span>Creations</span></h2>
+            <div class="project-grid">
+                <div class="project-card"><img src="https://images.unsplash.com/photo-1617127359922-e3954b5f3d43?auto=format&fit=crop&w=800&q=80" alt="Handmade Baby Gown">
+                    <div class="project-content"><h3>  Product Gallery</h3>
+                        <p>A collection of my handmade kidswear, including gowns, palazzos, and kimonos. Crafted with love.</p>
+                        <div class="project-links"> 
+                    <a href="gallery .html">View Gallery</a></div>
+                </div>
+            </div>
+                <div class="project-card"><img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&w=800&q=80" alt="Open book of poetry">
+                    <div class="project-content"><h3> The Poet's Nook</h3
+                        ><p>An interactive digital library of my personal poetry. A quiet space for reflection and inspiration.</p>
+                        <div class="project-links"><a href="library.html">Enter The Nook</a></div></div></div>
+                <div class="project-card"><img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=800&q=80" alt="Laptop with code on screen">
+                    <div class="project-content"><h3> Web Projects</h3>
+                        <p>A showcase of responsive websites and web applications built with modern front-end technologies.</p>
+                        <div class="project-links"><a href="https://chat.whatsapp.com/Iwofravl61p8httEiMIUqT">View Projects</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
+
+    <footer class="footer" id="contact">
+        <h2>Get In Touch</h2>
+        <p style="margin-bottom: 2rem;">Have a project in mind or just want to connect? I'd love to hear from you.</p>
+        <a id="whatsapp-btn" class="cta-button">Contact Me on WhatsApp</a>
+        <p style="margin-top: 3rem; color: var(--secondary-text-color);">© 2024 The Digital Loom. All Rights Reserved.</p>
+    </footer>
+
     <script>
+        // --- WHATSAPP BUTTON SCRIPT ---
         const whatsappBtn = document.getElementById('whatsapp-btn');
         whatsappBtn.addEventListener('click', () => {
-            const phoneNumber = 'YOUR_PHONE_NUMBER'; // <-- IMPORTANT: REPLACE WITH YOUR NUMBER
+            const phoneNumber = '2347049111844'; 
             const message = "Hello! I saw your beautiful portfolio and I would love to connect.";
             const encodedMessage = encodeURIComponent(message);
             const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
             window.open(whatsappURL, '_blank');
         });
+
+        // --- NEW SCRIPT FOR HAMBURGER MENU ---
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const navMenu = document.getElementById('nav-menu');
+
+        // Toggle the 'active' class on the menu when hamburger is clicked
+        hamburgerBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close the menu when a link is clicked for a smoother experience
+        navMenu.addEventListener('click', () => {
+            if (navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+            }
+        });
     </script>
 </body>
 </html>
-              
