@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Poet's Nook</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Raleway', sans-serif; color: #ffffff; overflow-x: hidden; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; height: 100%; width: 100%; background-image: url('https://images.pexels.com/photos/273230/pexels-photo-273230.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); background-size: cover; background-position: center center; z-index: -2; animation: fadeIn 1s ease-in-out; }
+        .background-overlay { position: fixed; top: 0; left: 0; height: 100%; width: 100%; background-color: rgba(0, 0, 0, 0.65); z-index: -1; }
+        .page { display: none; min-height: 100vh; width: 100%; padding: 40px 20px; align-items: center; justify-content: center; text-align: center; opacity: 0; transition: opacity 0.5s ease-in-out; }
+        .page.active { display: flex; opacity: 1; }
+        .container { max-width: 800px; width: 100%; background-color: rgba(20, 20, 20, 0.3); backdrop-filter: blur(10px); padding: 40px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: 0 4px 30px rgba(0,0,0,0.2); animation: slideUp 0.7s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        h1, h2, h3, .quote { font-family: 'Playfair Display', serif; }
+        .main-title { font-size: 3rem; margin-bottom: 10px; }
+        .subtitle { font-size: 1.2rem; font-style: italic; color: #ccc; }
+        .quote { font-size: 1.5rem; margin: 30px 0; line-height: 1.4; }
+        .welcome-message { margin-bottom: 2rem; font-size: 2rem; }
+        .main-button { background-color: #c0a080; color: #ffffff; border: none; padding: 15px 30px; font-size: 1.1rem; font-weight: bold; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 1px; }
+        .main-button:hover { background-color: #d4b89c; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .encouragement-box textarea { width: 100%; padding: 15px; margin-bottom: 15px; border: 1px solid #777; border-radius: 5px; background-color: rgba(255, 255, 255, 0.1); color: #ffffff; font-size: 1rem; font-family: 'Raleway', sans-serif; }
+        .encouragement-box textarea::placeholder { color: #bbb; }
+        .poem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
+        .poem-card { background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 5px; cursor: pointer; transition: all 0.3s ease; border-left: 3px solid #c0a080; }
+        .poem-card:hover { background: rgba(255, 255, 255, 0.15); transform: translateY(-5px); }
+        .poem-card h4 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 10px; }
+        .poem-card p { font-style: italic; color: #ccc; }
+        .poem-container { text-align: left; max-width: 650px; }
+        .back-button { background: none; border: none; color: #c0a080; font-size: 1rem; cursor: pointer; margin-bottom: 20px; display: inline-block; padding: 5px 10px; border-radius: 5px; transition: background-color 0.2s; }
+        .back-button:hover { background-color: rgba(255,255,255,0.1); }
+        #poem-title-display { text-align: center; margin-bottom: 30px; font-size: 2.5rem; }
+        .poem-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; line-height: 2; white-space: pre-wrap; text-align: center; margin-bottom: 40px; }
+        .separator { border: 0; height: 1px; background: #c0a080; margin: 40px 0; }
+        .whatsapp-button { background-color: #25D366; }
+        .whatsapp-button:hover { background-color: #1DAE54; }
+        footer { text-align: center; padding: 40px 20px 20px 20px; width: 100%; }
+        .back-to-main-portfolio { color: #c0a080; text-decoration: none; font-family: 'Raleway', sans-serif; transition: color 0.3s; }
+        .back-to-main-portfolio:hover { color: #ffffff; text-decoration: underline; }
+        @media (max-width: 768px) { .main-title { font-size: 2.5rem; } .container { padding: 20px; } }
+    </style>
+</head>
+<body>
+
+    <div class="background-overlay"></div>
+
+    <div id="landing-page" class="page active">
+        <div class="container">
+            <h1 class="main-title">The Poet's Nook</h1>
+            <p class="subtitle">A personal collection by Halima Masud</p>
+            <p class="quote">"Where words find their rhythm, and souls find their echo."</p>
+            <button id="enter-btn" class="main-button">Enter the Library</button>
+        </div>
+    </div>
+
+    <div id="library-page" class="page">
+        <div class="container">
+            <h2 class="welcome-message">Welcome to The Nook</h2>
+            <h3>My Poems</h3>
+            <div id="poem-grid" class="poem-grid"></div>
+        </div>
+    </div>
+
+    <div id="poem-page" class="page">
+        <div class="container poem-container">
+            <button id="back-to-library-btn" class="back-button">← Back to Library</button>
+            <h2 id="poem-title-display"></h2>
+            <div id="poem-content-display" class="poem-text"></div>
+            <hr class="separator">
+            <div class="encouragement-box">
+                <h4>Did this poem speak to you?</h4>
+                <p>Send a heartfelt word directly to my WhatsApp.</p>
+                <textarea id="encouragement-message" placeholder="Type your thoughts here..." rows="4"></textarea>
+                <button id="send-whatsapp-btn" class="main-button whatsapp-button">Send via WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <!-- This link now correctly points back to your portfolio's main page -->
+        <a href="index.html" class="back-to-main-portfolio">← Return to Main Portfolio</a>
+    </footer>
+
+    <script>
+        const yourWhatsAppNumber = '2347049111844';
+
+        // Corrected your poems array to have unique IDs
+        const poems = [
+            { id: 1, title: "One Body, Different Pattern", teaser: "The kind of wonder wey dey for this land ...", content: `Dem say Africa na just one place,\nLike say na only one expression dey our face.\nBut if you look am well, you go understand\nThe kind of wonder wey dey for this land.\nWe be the cloth wey God himself design,\nOne body, different pattern, wey dey shine.\n\nFrom where the desert sand dey blow so hot,\nTo where the greenest forest tie the knot.\nFrom mountain top wey touch the morning sky,\nTo river mouth wey hear the seagull cry.\nWe get the tongue wey different for our mouth,\nFrom North to West, from East to deep down South.\nOur skin na colour of the richest ground,\nBut na one laughter be the common sound.\n\nListen… you hear the rhythm of the drum?\nE dey call everybody say make dem come.\nThe beat for wedding, beat wey sweet for street,\nThe one wey make old woman move her feet.\nThe pot of jollof wey dey cause friendly fight,\nThe smell of suya burning in the night.\nNa different story grandmama dey tell,\nBut all of them dey wish our children well.\n\nSometimes the world go look, but dem no go see\nThe single, giant, loving family tree.\nDem see the quarrel, dem no see the love,\nDem no see eagle wey dey fly above.\nBut make dem know, our back no fit to break,\nFor every tear, a new strong seed we make.\nThe skin wey carry scar, na him wear the crown,\nWe no go let our spirit fall down.\n\nSo yes, the patterns different, that one na true,\nLike different thread of red and green and blue.\nBut all the threads, dem weave together strong,\nTo sing one single, everlasting song.\nNa one big body, from the root to soul,\nOne beautiful family, wey dey make us whole.\nSo make you stand and raise your voice and call:\nNa one proud Africa, wey stand for all.` },
+            { id: 2, title: "My Joy Wey Dem Thief", teaser: "The music dey play, but I no fit dance ...", content: `E get one corner for my heart\nWhere sun dey shine, e no dey gree quench.\nE no need window for dat side,\nNa so my body just be from start.\nMy body been dey light-light,\nOne simple song wey dey my head,\nE dey play soft from morning wake,\nTill time for sleep go reach my bed. \nNa so you waka enter my life,\nYou no break door, you no make noise.\nJust your hand, wey I no see,\nWey carry my own joy, kill my voice.\nAnd small-small, you pack am go,\nSo quiet-quiet, so tey-tey,\nI no feel am when e dey comot,\nNa only the cold I feel today. \nAnd now dat corner, na so-so empty,\nNa only echo and cold wind dey.\nI dey find for inside dust-dust\nFor any small light wey remain sef, I dey pray.\nBut na only the pain I dey feel,\nLike memory of your hand for my neck,\nThe same hand wey thief my thing,\nThe same hand wey my life check. \nThis world, the color don wash away,\nThe music play, but I no fit dance.\nThe sweetest mango, na sand-sand for mouth,\nNa so I dey live, no second chance.\nWhen I see other people, with their own sun,\nI dey quick turn my face away,\nBecause their light, e too dey bright,\nE dey show me how my own life dey grey. \nI think say I remember how e be,\nLike body sabi road, but eye no see.\nThe shadow of smile wey I don forget,\nNa wetin you do, you do to me.\nYou no break me, make I no lie,\nPerson fit patch wetin break.\nYou just pack everything for inside,\nCome leave the empty shell for my sake \nMy joy wey dem thief, my missing hand,\nThe one wey dey pain me but e no dey.\nNa the spirit wey I dey waka with now,\nAnd I must learn to live my life this way.` },
+            { id: 3, title: "My Own Gidigba Love", teaser: "The Mumu Button Version ...", content: `The day I see you, something for my brain shift,\nMy sense of reasoning just decide to take lift.\nMy heart begin dey do like say e drink Akamu,\nMy leg come dey shake like say I see Mami Wata promo.\nNa you be the reason my data dey finish quick,\nJust to see your picture, even when network thick. \nYou be the charger for my phone wey wan die,\nThe remote wey I dey find when match wan start, I no go lie.\nYou be the last slice of bread when NEPA take light,\nThe only mosquito wey no bite me for night.\nWhen you dey laugh, my own trouble dey run,\nEven if na my pocket your laughter dey take chop small-small, no wahala, make we run am.\nFor your sake, I go argue with LASTMA for road,\nI go kill the cockroach wey fly, carry the heavy load.\nI no fit promise you say I go fight lion,\nBut I go help you find your key when e loss for under iron.\nI go wake up first go on the generator for you,\nEven when the sleep for my eye sweet pass jollof for party, it's true. \nAnd even when you press toothpaste from the middle,\nAnd your snore for night sound like my neighbour faulty gen, e be riddle.\nEven when you dey drag blanket leave me for cold,\nMy love for you, my darling, e no go ever old.\nBecause na for inside all this small-small craze,\nI find the kind of peace wey nothing fit erase. \nSo make dem know, this love no be film trick,\nNa you be my own personal headache, my unpredictable medication .\nYou be my joy, my stress, my full-time wahala,\nMy forever and ever, my sweet cassava.\nThis gidigba love, e get sense, e get mumu part,\nBut na you get the password to my foolish heart.` },
+            { id: 4, title: "For My Mama", teaser: "The One I No Sabi ...", content: `Dem say your smile fit light up room,\nDem say your hand gentle like morning dew.\nBut my own eye no see am, my own memory blank,\nNa only for inside picture my eye dey look you.\nTwo years old na small pikin,\nMy memory still dey learn how to waka\nWhen your own journey for this life come end.\nThe face for the picture, e just be face,\nI no fit connect am to the name, "Mama."\n\nSometimes I look mirror, I dey search for you.\nI dey find you for my nose, for the way I dey laugh,\nFor the way my eye dey narrow when sun too bright.\nI dey ask aunty, "I be like her?"\nDem go smile one kind sad smile, dem go say,\n"Na your mama pikin you be, no doubt."\nAnd for one small second, e be like say you dey near,\nBut you be like breeze, I fit feel you, but I no fit hold you.\n\nI no sabi the sound of your voice when you dey vex or you dey play,\nI no sabi the food wey you like to cook pass.\nI get so many question wey nobody fit answer,\nA whole book of chapters wey blank for my life.\nBut one thing I sabi, one thing dey sure pass anything:\nNa you carry me for belle for nine months,\nNa your body give me life,\nNa your blood dey run for inside me today.\n\nSo even if my mouth no fit talk about you,\nMy heart e full with prayer wey I dey send.\nI no get memory to thank you for,\nSo I dey thank you for the life wey you leave for my hand.\nI dey thank God say, even if na for small time,\nNa you He choose to be my first home.\n\nSo Mama, anywhere wey you dey,\nMy mouth no go ever tire to pray for you.\nFor the woman I no sabi, but wey I love pass.\nMay Allah forgive your sins, Mama.\nMay He widen your grave and fill am with light.\nMay Allah grant you Jannah.\nMake Him give you the highest place,\nMake He give you Jannatu Firdausi.\nAmeen.` },
+            { id: 5, title: "My Eye See, My Hand No Reach", teaser: "coming soon ...", content: `` },
+            { id: 6, title: "This Life Na Packaging", teaser: "coming soon ...", content: `` },
+            { id: 7, title: "Sister Wey Do", teaser: "coming soon ...", content: `` },
+            { id: 8, title: "Take This Life Jeje", teaser: "coming soon ...", content: `` }
+        ];
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const pages = { landing: document.getElementById('landing-page'), library: document.getElementById('library-page'), poem: document.getElementById('poem-page') };
+            const enterBtn = document.getElementById('enter-btn');
+            const backToLibraryBtn = document.getElementById('back-to-library-btn');
+            const sendWhatsAppBtn = document.getElementById('send-whatsapp-btn');
+            const poemGrid = document.getElementById('poem-grid');
+            const poemTitleDisplay = document.getElementById('poem-title-display');
+            const poemContentDisplay = document.getElementById('poem-content-display');
+            let currentPoem = null;
+
+            function showPage(pageName) {
+                Object.values(pages).forEach(page => page.classList.remove('active'));
+                if (pages[pageName]) pages[pageName].classList.add('active');
+            }
+
+            // Simplified: Enter button goes directly to library
+            enterBtn.addEventListener('click', () => {
+                loadLibrary();
+                showPage('library');
+            });
+
+            backToLibraryBtn.addEventListener('click', () => showPage('library'));
+
+            function loadLibrary() {
+                poemGrid.innerHTML = '';
+                poems.forEach(poem => {
+                    if (poem.content.trim() === '') return; // Skip "coming soon" poems
+                    const card = document.createElement('div');
+                    card.className = 'poem-card';
+                    card.innerHTML = `<h4>${poem.title}</h4><p>"${poem.teaser}"</p>`;
+                    card.addEventListener('click', () => loadPoem(poem.id));
+                    poemGrid.appendChild(card);
+                });
+            }
+
+            function loadPoem(poemId) {
+                currentPoem = poems.find(p => p.id === poemId);
+                if (currentPoem) {
+                    poemTitleDisplay.textContent = currentPoem.title;
+                    poemContentDisplay.textContent = currentPoem.content;
+                    document.getElementById('encouragement-message').value = '';
+                    showPage('poem');
+                }
+            }
+
+            sendWhatsAppBtn.addEventListener('click', () => {
+                const userMessage = document.getElementById('encouragement-message').value;
+                if (!userMessage) { alert('Please write a message before sending!'); return; }
+                if (!currentPoem) return;
+                const finalMessage = `Hello! I just read your poem "${currentPoem.title}" and wanted to share a thought:\n\n"${userMessage}"`;
+                const encodedMessage = encodeURIComponent(finalMessage);
+                const whatsappUrl = `https://wa.me/${yourWhatsAppNumber}?text=${encodedMessage}`;
+                window.open(whatsappUrl, '_blank');
+            });
+
+            showPage('landing');
+        });
+    </script>
+
+</body>
+</html>
