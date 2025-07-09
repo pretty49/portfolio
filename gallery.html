@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Gallery </title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- THEME & BASIC SETUP (Matches your portfolio) --- */
+        :root {
+            --primary-color: #8a4baf;
+            --secondary-color: #f7b733;
+            --bg-color: #1a1423;
+            --text-color: #e0e0e0;
+            --card-bg-color: rgba(30, 30, 50, 0.7);
+            --heading-font: 'Playfair Display', serif;
+            --body-font: 'Poppins', sans-serif;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--body-font);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            background-image: url('https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1600&q=80 ');
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed;
+            line-height: 1.6;
+        }
+        .container { max-width: 1100px; margin: auto; padding: 4rem 2rem; }
+
+        /* --- GALLERY HEADER --- */
+        .gallery-header {
+            text-align: center;
+            padding: 4rem 0 2rem 0;
+            background-color: rgba(26, 26, 46, 0.5);
+            backdrop-filter: blur(5px);
+        }
+        .gallery-header h1 { font-size: 3rem; color: white; }
+        .gallery-header p { font-size: 1.2rem; color: var(--secondary-color); font-style: italic; }
+
+        /* --- GALLERY GRID --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+        .product-card {
+            background: var(--card-bg-color);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .product-card img { width: 100%; height: 250px; object-fit: cover; }
+        .product-card-content { padding: 1.5rem; }
+        .product-card h3 { color: var(--primary-color); font-size: 1.8rem; }
+        
+        /* --- CALL TO ACTION & ORDER BUTTON --- */
+        .order-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background-color: rgba(26, 26, 46, 0.5);
+            backdrop-filter: blur(5px);
+            margin-top: 1px;
+        }
+        .order-section h2 { font-size: 2rem; }
+        .order-btn {
+            display: inline-block; padding: 15px 35px; background: var(--secondary-color); color: var(--bg-color);
+            text-decoration: none; border-radius: 50px; font-weight: bold; cursor: pointer; border: none;
+            font-size: 1.2rem; transition: all 0.3s ease;
+        }
+        .order-btn:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
+
+        /* --- ORDER FORM MODAL (POP-UP) --- */
+        .modal {
+            display: none; position: fixed; z-index: 1000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            overflow: auto; background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s;
+        }
+        .modal-content {
+            background-color: var(--bg-color); color: white;
+            margin: 10% auto; padding: 30px; border: 1px solid rgba(255,255,255,0.2);
+            width: 90%; max-width: 500px; border-radius: 8px;
+            position: relative;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+        }
+        .close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+        .close-btn:hover, .close-btn:focus { color: white; }
+        .modal h2 { text-align: center; color: var(--primary-color); }
+        #whatsapp-order-form { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+        #whatsapp-order-form input, #whatsapp-order-form select, #whatsapp-order-form textarea {
+            width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 5px;
+            color: white; font-family: var(--body-font); font-size: 1rem;
+        }
+        #whatsapp-order-form .submit-btn {
+            background-color: #25D366; color: white; font-weight: bold;
+            padding: 15px; border-radius: 5px; border: none; cursor: pointer;
+            font-size: 1.1rem; transition: background-color 0.3s;
+        }
+        #whatsapp-order-form .submit-btn:hover { background-color: #1DAE54; }
+
+        /* --- FOOTER --- */
+        footer { text-align: center; padding: 3rem 1rem; }
+        .back-to-main-portfolio { color: var(--secondary-color); text-decoration: none; font-size: 1.1rem; transition: color 0.3s; }
+        .back-to-main-portfolio:hover { color: white; text-decoration: underline; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <header class="gallery-header">
+        <h1>Our Gallery</h1>
+        <p>Handmade with Love and a Touch of Magic</p>
+    </header>
+
+    <main class="container">
+        <div class="gallery-grid">
+            <div class="product-card">
+                <img src=" /Users/clique/Desktop/my complet /images/794ef213a5301413da17e9d1d423c423.jpeg" alt="Adorable Baby Gown">
+                <div class="product-card-content">
+                    <h3>Adorable Baby Gowns</h3>
+                    <p>Soft, breathable dresses for special occasions or everyday charm, crafted from the finest fabrics.</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1622295283193-845a7825313a?auto=format&fit=crop&w=1600&q=80" alt="Kids Palazzo Pants">
+                <div class="product-card-content">
+                    <h3>Kids Palazzo Pants</h3>
+                    <p>Stylish and comfortable palazzo pants that give children the freedom to play and explore in style.</p>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1596481974026-613d788de328?auto=format&fit=crop&w=1600&q=80" alt="Kids Kimono">
+                <div class="product-card-content">
+                    <h3>Kids Kimono</h3>
+                    <p>Elegant and light kimonos, perfect as a stylish layer for any outfit, handmade with unique patterns.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <section class="order-section">
+        <h2>Ready for a Unique Creation?</h2>
+        <p style="margin: 1rem 0 2rem 0;">Let's create something beautiful and bespoke for your little one.</p>
+        <button id="show-form-btn" class="order-btn">Request a Custom Order</button>
+    </section>
+
+    <footer>
+        <a href="index.html" class="back-to-main-portfolio">← Return to Main Portfolio</a>
+    </footer>
+
+    <!-- The Order Form Modal (Pop-up) -->
+    <div id="order-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">×</span>
+            <h2>Custom Order Form</h2>
+            <form id="whatsapp-order-form">
+                <input type="text" id="wa-name" placeholder="Your Name" required>
+                <input type="tel" id="wa-phone" placeholder="Your WhatsApp Number" required>
+                
+                <select id="wa-item-type" required>
+                    <option value="" disabled selected>Select Item Type...</option>
+                    <option value="Baby Gown">Adorable Baby Gown</option>
+                    <option value="Kids Palazzo">Kids Palazzo Pants</option>
+                    <option value="Kids Kimono">Kids Kimono</option>
+                </select>
+
+                <input type="text" id="wa-age-size" placeholder="Child's Age or Size (e.g., '2-3 years')" required>
+                <textarea id="wa-details" rows="4" placeholder="Any specific requests? (e.g., 'I would love a sky blue color with floral patterns.')"></textarea>
+                
+                <button type="submit" class="submit-btn">Submit Request via WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- SCRIPT FOR THE ORDER FORM MODAL & WHATSAPP ---
+        const modal = document.getElementById('order-modal');
+        const showFormBtn = document.getElementById('show-form-btn');
+        const closeBtn = document.querySelector('.close-btn');
+        const orderForm = document.getElementById('whatsapp-order-form');
+
+        // Show the modal
+        showFormBtn.onclick = () => {
+            modal.style.display = 'block';
+        }
+        // Hide the modal with the 'x' button
+        closeBtn.onclick = () => {
+            modal.style.display = 'none';
+        }
+        // Hide the modal if user clicks outside of it
+        window.onclick = (event) => {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Handle form submission
+        orderForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent the form from reloading the page
+
+            // --- IMPORTANT: REPLACE WITH YOUR NUMBER ---
+            const yourPhoneNumber = '2347049111844'; 
+
+            // Get values from the form
+            const name = document.getElementById('wa-name').value;
+            const phone = document.getElementById('wa-phone').value;
+            const itemType = document.getElementById('wa-item-type').value;
+            const ageSize = document.getElementById('wa-age-size').value;
+            const details = document.getElementById('wa-details').value;
+
+            // Simple validation
+            if (!name || !phone || !itemType || !ageSize) {
+                alert('Please fill out all required fields.');
+                return;
+            }
+
+            // Create the pre-filled message text
+            const messageBody = `*New Custom Order Request!*
+---------------------------------
+*From:* ${name}
+*Contact:* ${phone}
+
+*Item Requested:* ${itemType}
+*Age/Size:* ${ageSize}
+*Additional Details:*
+${details || 'None'}`; // Use 'None' if details are empty
+
+            // Create the WhatsApp URL
+            const encodedMessage = encodeURIComponent(messageBody);
+            const whatsappURL = `https://wa.me/${yourPhoneNumber}?text=${encodedMessage}`;
+
+            // Open WhatsApp
+            window.open(whatsappURL, '_blank');
+            
+            // Hide the modal after submission
+            modal.style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>
